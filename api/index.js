@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/',(req, res) =>{
-    return res.status(200).json({ is_success: true, message: "Invalid input. Expected array." });
+    return res.status(200).json({ is_success: true, message: "Hello, My name is Nikhita Gupta and my rollno is 2210990613" });
 })
 app.post('/bfhl', (req, res) => {
     try {

@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const serverless = require("serverless-http");
 const cors = require('cors');
 
 const app = express();
@@ -8,13 +9,15 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get('/',(req, res) =>{
+    return res.status(200).json({ is_success: true, message: "Invalid input. Expected array." });
+})
 app.post('/bfhl', (req, res) => {
     try {
         const { data } = req.body;
         if (!Array.isArray(data)) {
             return res.status(400).json({ is_success: false, message: "Invalid input. Expected array." });
         }
-
         const full_name = 'nikhita_gupta';
         const dob = '13032004';
 
@@ -66,7 +69,8 @@ app.post('/bfhl', (req, res) => {
         return res.status(500).json({ is_success: false, error: error.message });
     }
 });
-
+module.exports = app;
+module.exports.handler = serverless(app);
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
